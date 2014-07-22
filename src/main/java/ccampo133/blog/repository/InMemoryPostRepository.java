@@ -3,8 +3,7 @@ package ccampo133.blog.repository;
 import ccampo133.blog.domain.Post;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by chriscampo on 7/21/14.
@@ -12,24 +11,29 @@ import java.util.List;
 @Repository
 public class InMemoryPostRepository implements PostRepository {
 
-    private final List<Post> posts;
+    private final Map<Long, Post> posts;
 
     public InMemoryPostRepository() {
-        this.posts = new ArrayList<Post>();
+        posts = new HashMap<Long, Post>();
     }
 
-    @Override
-    public List<Post> getAll() {
-        return new ArrayList<Post>(posts);
+    @Override public void add(final Post post) {
+        posts.put(post.getId(), post);
     }
 
-    @Override
-    public void add(Post post) {
-        posts.add(post);
+    @Override public List<Post> getAll() {
+        return new ArrayList<Post>(posts.values());
     }
 
-    @Override
-    public void remove(Post post) {
-        posts.remove(post);
+    @Override public Post getById(final long id) {
+        return posts.get(id);
+    }
+
+    @Override public void updateById(final long id, final Post post) {
+        posts.put(id, post);
+    }
+
+    @Override public void remove(final long id) {
+        posts.remove(id);
     }
 }

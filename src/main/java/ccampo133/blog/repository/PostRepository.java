@@ -8,7 +8,14 @@ import java.util.List;
  * Created by chriscampo on 7/21/14.
  */
 public interface PostRepository {
-    List<Post> getAll();
+
     void add(Post post);
-    void remove(Post post);
+
+    List<Post> getAll();
+
+    Post getById(long id);
+
+    void updateById(long id, Post post);
+
+    void remove(long id);
 }

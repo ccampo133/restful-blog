@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-web:1.1.4.RELEASE")
+    testCompile("org.jmockit:jmockit:1.9")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
