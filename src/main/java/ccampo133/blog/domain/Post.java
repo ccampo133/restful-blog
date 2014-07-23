@@ -21,7 +21,8 @@ public class Post {
         return id;
     }
 
-    public void setId(long id) {
+    @JsonProperty(required = false)
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -30,7 +31,7 @@ public class Post {
     }
 
     @JsonProperty(required = false)
-    public void setAuthor(String author) {
+    public void setAuthor(final String author) {
         this.author = author;
     }
 
@@ -38,7 +39,7 @@ public class Post {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(final String body) {
         this.body = body;
     }
 
@@ -46,7 +47,7 @@ public class Post {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -55,7 +56,7 @@ public class Post {
     }
 
     @JsonProperty(required = false)
-    public void setDate(Date date) {
+    public void setDate(final Date date) {
         this.date = date;
     }
 }

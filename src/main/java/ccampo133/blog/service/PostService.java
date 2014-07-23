@@ -3,6 +3,7 @@ package ccampo133.blog.service;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public class PostService {
     }
 
     public Post createPost(final Post post) {
-        postRepository.add(post);
-        return post;
+        Post newPost = postRepository.add(post);
+        return newPost;
     }
 
     public List<Post> getAllPosts() {
