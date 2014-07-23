@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,8 +23,9 @@ public class PostService {
     }
 
     public Post createPost(final Post post) {
-        Post newPost = postRepository.add(post);
-        return newPost;
+        post.setDate(new Date());
+        // TODO: set author to authenticated user
+        return postRepository.add(post);
     }
 
     public List<Post> getAllPosts() {
