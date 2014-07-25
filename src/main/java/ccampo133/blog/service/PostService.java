@@ -22,9 +22,9 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Post createPost(final Post post) {
+    public Post createPost(final Post post, final String username) {
         post.setDate(new Date());
-        // TODO: set author to authenticated user
+        post.setAuthor(username);
         return postRepository.add(post);
     }
 

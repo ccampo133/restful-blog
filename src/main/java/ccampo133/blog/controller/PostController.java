@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -27,8 +28,8 @@ public class PostController {
 
     // CREATE
     @RequestMapping(value = ALL_POSTS, method = RequestMethod.POST)
-    public ResponseEntity<Post> createPost(@RequestBody final Post post) {
-        Post newPost = postService.createPost(post);
+    public ResponseEntity<Post> createPost(@RequestBody final Post post, final Principal principal) {
+        Post newPost = postService.createPost(post, principal.getName());
         return new ResponseEntity<Post>(newPost, HttpStatus.CREATED);
     }
 

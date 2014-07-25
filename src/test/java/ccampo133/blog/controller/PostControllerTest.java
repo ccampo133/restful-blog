@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -27,14 +28,14 @@ public class PostControllerTest {
     private PostController postController;
 
     @Test
-    public void createPostIsSuccessful(@Mocked final Post post) throws Exception {
+    public void createPostIsSuccessful(@Mocked final Post post, @Mocked final Principal principal) throws Exception {
         new Expectations() {{
-            postService.createPost(post);
+            postService.createPost(post, principal.getName());
             times = 1;
             result = post;
         }};
 
-        ResponseEntity<Post> result = postController.createPost(post);
+        ResponseEntity<Post> result = postController.createPost(post, principal);
 
         assertEquals("Response should be 201 Created.", HttpStatus.CREATED, result.getStatusCode());
         assertEquals("Response body mismatch.", post, result.getBody());

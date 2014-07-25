@@ -8,6 +8,7 @@ import java.util.Date;
 /**
  * Created by chriscampo on 7/21/14.
  */
+@SuppressWarnings("UnusedDeclaration")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post {
 
@@ -35,6 +36,15 @@ public class Post {
         this.author = author;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    @JsonProperty(required = false)
+    public void setDate(final Date date) {
+        this.date = date;
+    }
+
     public String getBody() {
         return body;
     }
@@ -49,14 +59,5 @@ public class Post {
 
     public void setTitle(final String title) {
         this.title = title;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    @JsonProperty(required = false)
-    public void setDate(final Date date) {
-        this.date = date;
     }
 }
