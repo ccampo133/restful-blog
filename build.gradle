@@ -30,6 +30,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("mysql:mysql-connector-java:5.1.31")
+    runtime("com.h2database:h2")
     testCompile("org.jmockit:jmockit:1.9")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
