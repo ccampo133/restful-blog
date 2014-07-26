@@ -1,8 +1,10 @@
 package ccampo133.blog.service;
 
 import ccampo133.blog.domain.Post;
+import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,18 +30,31 @@ public class PostService {
         return (List<Post>) postRepository.findAll();
     }
 
-    public Post getPostById(final long id) {
-        return postRepository.findOne(id);
+    public Post getPostById(final long id) throws PostNotFoundException {
+        final Post post = postRepository.findOne(id);
+
+        // Couldn't find this post in the DB - 404
+        if (post == null) {
+            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+        }
+
+        return post;
     }
 
-    public void updatePost(final Post post, final long id, final String username) {
+    public void updatePost(final Post post, final long id, final String username) throws PostNotFoundException {
+        if (!postRepository.exists(id)) {
+            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+        }
+
         post.setId(id);
-        post.setAuthor(username);
-        post.setDate(new Date());
-        postRepository.save(post);
+        createPost(post, username);
     }
 
-    public void deletePostById(final long id) {
-        postRepository.delete(id);
+    public void deletePostById(final long id) throws PostNotFoundException {
+        try {
+            postRepository.delete(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+        }
     }
 }

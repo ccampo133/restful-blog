@@ -42,14 +42,14 @@ public class PostController {
     // UPDATE
     @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post,
-            final Principal principal) {
+            final Principal principal) throws PostNotFoundException {
         postService.updatePost(post, id, principal.getName());
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     // DELETE
     @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deletePost(@PathVariable("id") final long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

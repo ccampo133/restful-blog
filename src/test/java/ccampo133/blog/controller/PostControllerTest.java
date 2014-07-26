@@ -65,6 +65,8 @@ public class PostControllerTest {
         assertEquals("Result does not match expected.", post, result);
     }
 
+    // TODO: handle not found exception case
+
     @Test
     public void updatePostIsSuccessfulAndReturnsStatusNoContent(@Mocked final Post post,
             @Mocked final Principal principal) throws Exception {
