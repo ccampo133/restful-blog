@@ -3,15 +3,11 @@ package ccampo133.blog.service;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by chriscampo on 7/21/14.
- */
 @Service
 public class PostService {
 
