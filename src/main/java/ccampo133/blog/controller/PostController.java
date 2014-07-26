@@ -1,6 +1,7 @@
 package ccampo133.blog.controller;
 
 import ccampo133.blog.domain.Post;
+import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.GET)
-    public Post getSinglePost(@PathVariable("id") final long id) {
+    public Post getSinglePost(@PathVariable("id") final long id) throws PostNotFoundException {
         return postService.getPostById(id);
     }
 
