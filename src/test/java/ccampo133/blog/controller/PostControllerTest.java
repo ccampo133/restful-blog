@@ -31,7 +31,6 @@ public class PostControllerTest {
     public void createPostIsSuccessful(@Mocked final Post post, @Mocked final Principal principal) throws Exception {
         new Expectations() {{
             postService.createPost(post, principal.getName());
-            times = 1;
             result = post;
         }};
 
@@ -43,9 +42,8 @@ public class PostControllerTest {
 
     @Test
     public void getAllPostsIsSuccessful(@Mocked final List<Post> allPosts) throws Exception {
-        new Expectations(){{
+        new Expectations() {{
             postService.getAllPosts();
-            times = 1;
             result = allPosts;
         }};
 
@@ -57,9 +55,8 @@ public class PostControllerTest {
     @Test
     public void getSinglePostIsSuccessful(@Mocked final Post post) throws Exception {
         final long id = 1234;
-        new Expectations(){{
+        new Expectations() {{
             postService.getPostById(id);
-            times = 1;
             result = post;
         }};
 
@@ -71,9 +68,8 @@ public class PostControllerTest {
     @Test
     public void updatePostIsSuccessfulAndReturnsStatusNoContent(@Mocked final Post post) throws Exception {
         final long id = 1234;
-        new Expectations(){{
-            postService.updatePost(id, post);
-            times = 1;
+        new Expectations() {{
+            postService.updatePost(post, id, "asdad");
         }};
 
         ResponseEntity<Void> result = postController.updatePost(id, post);
@@ -84,9 +80,8 @@ public class PostControllerTest {
     @Test
     public void deletePostIsSuccessfulAndReturnsStatusOK(@Mocked final Post post) throws Exception {
         final long id = 1234;
-        new Expectations(){{
+        new Expectations() {{
             postService.deletePostById(id);
-            times = 1;
         }};
 
         ResponseEntity<Void> result = postController.deletePost(id);

@@ -3,11 +3,17 @@ package ccampo133.blog.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
-/**
- * Created by chriscampo on 7/21/14.
- */
+
+// Lots of JPA magic in this class. The database schema will be generated
+// based on the structure (getters, setters, id annotation) of this POJO.
+
+@Entity
 @SuppressWarnings("UnusedDeclaration")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post {
@@ -15,10 +21,14 @@ public class Post {
     private String author;
     private String body;
     private String title;
-    private long id;
     private Date date;
 
-    public Long getId() {
+    // Primary key - auto incremented long
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    public long getId() {
         return id;
     }
 

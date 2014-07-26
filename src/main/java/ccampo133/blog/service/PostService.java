@@ -25,22 +25,25 @@ public class PostService {
     public Post createPost(final Post post, final String username) {
         post.setDate(new Date());
         post.setAuthor(username);
-        return postRepository.add(post);
+        return postRepository.save(post);
     }
 
     public List<Post> getAllPosts() {
-        return postRepository.getAll();
+        return (List<Post>) postRepository.findAll();
     }
 
     public Post getPostById(final long id) {
-        return postRepository.getById(id);
+        return postRepository.findOne(id);
     }
 
-    public void updatePost(final long id, final Post post) {
-        postRepository.updateById(id, post);
+    public void updatePost(final Post post, final long id, final String username) {
+        post.setId(id);
+        post.setAuthor(username);
+        post.setDate(new Date());
+        postRepository.save(post);
     }
 
     public void deletePostById(final long id) {
-        postRepository.remove(id);
+        postRepository.delete(id);
     }
 }

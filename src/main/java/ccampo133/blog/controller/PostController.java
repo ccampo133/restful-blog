@@ -47,7 +47,7 @@ public class PostController {
     // UPDATE
     @RequestMapping(value = SINGLE_POST, method = RequestMethod.PUT)
     public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post) {
-        postService.updatePost(id, post);
+        postService.updatePost(post, id, "asdad");
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
