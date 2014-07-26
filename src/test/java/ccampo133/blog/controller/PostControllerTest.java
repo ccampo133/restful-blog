@@ -66,13 +66,14 @@ public class PostControllerTest {
     }
 
     @Test
-    public void updatePostIsSuccessfulAndReturnsStatusNoContent(@Mocked final Post post) throws Exception {
+    public void updatePostIsSuccessfulAndReturnsStatusNoContent(@Mocked final Post post,
+            @Mocked final Principal principal) throws Exception {
         final long id = 1234;
         new Expectations() {{
-            postService.updatePost(post, id, "asdad");
+            postService.updatePost(post, id, principal.getName());
         }};
 
-        ResponseEntity<Void> result = postController.updatePost(id, post);
+        ResponseEntity<Void> result = postController.updatePost(id, post, principal);
 
         assertEquals("Status is not 204 No Content.", HttpStatus.NO_CONTENT, result.getStatusCode());
     }
