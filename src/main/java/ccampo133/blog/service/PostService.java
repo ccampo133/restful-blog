@@ -3,6 +3,7 @@ package ccampo133.blog.service;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.repository.PostRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -42,12 +43,22 @@ public class PostService {
     }
 
     public void updatePost(final Post post, final long id, final String username) throws PostNotFoundException {
-        if (!postRepository.exists(id)) {
+        final Post oldPost = postRepository.findOne(id);
+
+        if (oldPost == null) {
             throw new PostNotFoundException("The post with ID " + id + " does not exist!");
         }
 
-        post.setId(id);
-        createPost(post, username);
+        // Allow partial updates; ignore author, date, and id fields
+        if (post.getBody() != null) {
+            oldPost.setBody(post.getBody());
+        }
+
+        if (post.getTitle() != null) {
+            oldPost.setTitle(post.getTitle());
+        }
+
+        createPost(oldPost, username);
     }
 
     public void deletePostById(final long id) throws PostNotFoundException {

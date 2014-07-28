@@ -40,8 +40,7 @@ public class PostController {
     }
 
     // UPDATE
-    // TODO: scrub this - needs to be idempotent. Replace with patch?
-    @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post,
             final Principal principal) throws PostNotFoundException {
         postService.updatePost(post, id, principal.getName());
