@@ -49,4 +49,10 @@ local.properties
 ### Maven ###
 target/
 
+# Gradle
+.gradle/
+
+
+# Misc
 atlassian-ide-plugin.xml
+build/
