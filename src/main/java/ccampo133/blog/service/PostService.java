@@ -3,7 +3,6 @@ package ccampo133.blog.service;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.repository.PostRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class PostService {
         return post;
     }
 
-    public void updatePost(final Post post, final long id, final String username) throws PostNotFoundException {
+    public void updatePost(final Post post, final long id) throws PostNotFoundException {
         final Post oldPost = postRepository.findOne(id);
 
         if (oldPost == null) {
@@ -58,7 +57,7 @@ public class PostService {
             oldPost.setTitle(post.getTitle());
         }
 
-        createPost(oldPost, username);
+        postRepository.save(oldPost);
     }
 
     public void deletePostById(final long id) throws PostNotFoundException {

@@ -12,6 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/posts")
 public class PostController {
 
     private final PostService postService;
@@ -22,33 +23,33 @@ public class PostController {
     }
 
     // CREATE
-    @RequestMapping(value = "/api/posts", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Post> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
         return new ResponseEntity<Post>(newPost, HttpStatus.CREATED);
     }
 
     // READ
-    @RequestMapping(value = "/api/posts", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
 
-    @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Post getSinglePost(@PathVariable("id") final long id) throws PostNotFoundException {
         return postService.getPostById(id);
     }
 
     // UPDATE
-    @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post,
-            final Principal principal) throws PostNotFoundException {
-        postService.updatePost(post, id, principal.getName());
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post)
+            throws PostNotFoundException {
+        postService.updatePost(post, id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     // DELETE
-    @RequestMapping(value = "/api/posts/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePost(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
