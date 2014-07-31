@@ -2,6 +2,8 @@ package ccampo133.blog.controller;
 
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.exception.PostNotFoundException;
+import ccampo133.blog.resource.PostResource;
+import ccampo133.blog.resource.assembler.PostResourceAssembler;
 import ccampo133.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,28 +18,33 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final PostResourceAssembler postResourceAssembler;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, PostResourceAssembler postResourceAssembler) {
         this.postService = postService;
+        this.postResourceAssembler = postResourceAssembler;
     }
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Post> createPost(@RequestBody final Post post, final Principal principal) {
+    public ResponseEntity<PostResource> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
-        return new ResponseEntity<Post>(newPost, HttpStatus.CREATED);
+        PostResource newPostResource = postResourceAssembler.toResource(newPost);
+        return new ResponseEntity<PostResource>(newPostResource, HttpStatus.CREATED);
     }
 
     // READ
     @RequestMapping(method = RequestMethod.GET)
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public List<PostResource> getAllPosts() {
+        List<Post> allPosts = postService.getAllPosts();
+        return postResourceAssembler.toResources(allPosts);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Post getSinglePost(@PathVariable("id") final long id) throws PostNotFoundException {
-        return postService.getPostById(id);
+    public PostResource getSinglePost(@PathVariable("id") final long id) throws PostNotFoundException {
+        Post post = postService.getPostById(id);
+        return postResourceAssembler.toResource(post);
     }
 
     // UPDATE
