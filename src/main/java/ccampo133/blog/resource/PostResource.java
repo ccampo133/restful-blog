@@ -1,5 +1,6 @@
 package ccampo133.blog.resource;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ public class PostResource extends ResourceSupport {
     private String body;
     private String title;
     private Date date;
+    private long postId;
 
     public String getAuthor() {
         return author;
@@ -41,5 +43,16 @@ public class PostResource extends ResourceSupport {
 
     public void setDate(final Date date) {
         this.date = date;
+    }
+
+    // We have to use the variable name 'postId' to avoid stepping on the feet of the HATEOAS 'ResourceSupport' class,
+    // which already defines this property (getter) to return a self-referencing link.
+    @JsonProperty(value = "id")
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(final long postId) {
+        this.postId = postId;
     }
 }
