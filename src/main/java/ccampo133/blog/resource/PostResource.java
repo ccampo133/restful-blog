@@ -5,6 +5,7 @@ import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Date;
 
+@SuppressWarnings("UnusedDeclaration")
 public class PostResource extends ResourceSupport {
 
     private String author;

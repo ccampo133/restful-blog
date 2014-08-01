@@ -21,7 +21,7 @@ public class PostController {
     private final PostResourceAssembler postResourceAssembler;
 
     @Autowired
-    public PostController(PostService postService, PostResourceAssembler postResourceAssembler) {
+    public PostController(final PostService postService, final PostResourceAssembler postResourceAssembler) {
         this.postService = postService;
         this.postResourceAssembler = postResourceAssembler;
     }
