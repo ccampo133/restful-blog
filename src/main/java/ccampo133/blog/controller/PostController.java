@@ -51,7 +51,7 @@ public class PostController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updatePostById(@PathVariable("id") final long id, @RequestBody final Post post)
             throws PostNotFoundException {
-        postService.updatePostById(post, id);
+        postService.updatePostById(id, post);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

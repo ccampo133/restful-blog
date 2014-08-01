@@ -41,7 +41,7 @@ public class PostService {
         return post;
     }
 
-    public void updatePostById(final Post post, final long id) throws PostNotFoundException {
+    public void updatePostById(final long id, final Post post) throws PostNotFoundException {
         final Post oldPost = postRepository.findOne(id);
 
         if (oldPost == null) {
