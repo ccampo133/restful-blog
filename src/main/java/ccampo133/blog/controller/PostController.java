@@ -31,7 +31,7 @@ public class PostController {
     public ResponseEntity<PostResource> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
         PostResource newPostResource = postResourceAssembler.toResource(newPost);
-        return new ResponseEntity<PostResource>(newPostResource, HttpStatus.CREATED);
+        return new ResponseEntity<>(newPostResource, HttpStatus.CREATED);
     }
 
     // READ
@@ -42,23 +42,23 @@ public class PostController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PostResource getSinglePost(@PathVariable("id") final long id) throws PostNotFoundException {
+    public PostResource getPostById(@PathVariable("id") final long id) throws PostNotFoundException {
         Post post = postService.getPostById(id);
         return postResourceAssembler.toResource(post);
     }
 
     // UPDATE
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<Void> updatePost(@PathVariable("id") final long id, @RequestBody final Post post)
+    public ResponseEntity<Void> updatePostById(@PathVariable("id") final long id, @RequestBody final Post post)
             throws PostNotFoundException {
-        postService.updatePost(post, id);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        postService.updatePostById(post, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // DELETE
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deletePost(@PathVariable("id") final long id) throws PostNotFoundException {
+    public ResponseEntity<Void> deletePostById(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -67,7 +67,7 @@ public class PostControllerTest {
             result = post;
         }};
 
-        PostResource result = postController.getSinglePost(id);
+        PostResource result = postController.getPostById(id);
 
         assertEquals("Result does not match expected.", post, result);
     }
@@ -80,10 +80,10 @@ public class PostControllerTest {
             @Mocked final Principal principal) throws Exception {
         final long id = 1234;
         new Expectations() {{
-            postService.updatePost(post, id, principal.getName());
+            postService.updatePostById(post, id, principal.getName());
         }};
 
-        ResponseEntity<Void> result = postController.updatePost(id, post, principal);
+        ResponseEntity<Void> result = postController.updatePostById(id, post, principal);
 
         assertEquals("Status is not 204 No Content.", HttpStatus.NO_CONTENT, result.getStatusCode());
     }*/
@@ -95,7 +95,7 @@ public class PostControllerTest {
             postService.deletePostById(id);
         }};
 
-        ResponseEntity<Void> result = postController.deletePost(id);
+        ResponseEntity<Void> result = postController.deletePostById(id);
 
         assertEquals("Status is not 200 OK.", HttpStatus.OK, result.getStatusCode());
     }
