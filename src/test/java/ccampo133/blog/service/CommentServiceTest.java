@@ -4,8 +4,11 @@ import ccampo133.blog.domain.Comment;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.exception.CommentNotFoundException;
 import ccampo133.blog.repository.CommentRepository;
-import mockit.*;
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
 import mockit.integration.junit4.JMockit;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,11 +22,14 @@ import static junit.framework.Assert.assertEquals;
 public class CommentServiceTest {
 
     @Mocked
-    @Injectable
     private CommentRepository commentRepository;
 
-    @Tested
     private CommentService commentService;
+
+    @Before
+    public void setup() {
+        commentService = new CommentService(commentRepository);
+    }
 
     @Test
     public void createCommentCreatesNewPostAndUpdatesPostDateAuthor(@Mocked final Comment comment,

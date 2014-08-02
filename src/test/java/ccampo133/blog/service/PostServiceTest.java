@@ -3,8 +3,12 @@ package ccampo133.blog.service;
 import ccampo133.blog.domain.Post;
 import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.repository.PostRepository;
-import mockit.*;
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
+import mockit.VerificationsInOrder;
 import mockit.integration.junit4.JMockit;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,11 +22,14 @@ import static org.junit.Assert.assertEquals;
 public class PostServiceTest {
 
     @Mocked
-    @Injectable
     private PostRepository postRepository;
 
-    @Tested
     private PostService postService;
+
+    @Before
+    public void setup() {
+        postService = new PostService(postRepository);
+    }
 
     @Test
     public void createPostSetsDateAndAuthorAndSaves(@Mocked final Post post, @Mocked final Date date) {
