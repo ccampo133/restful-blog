@@ -21,7 +21,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public Comment createComment(final Comment comment, final long postId, final String username) {
+    public Comment createComment(final long postId, final Comment comment, final String username) {
         // Create the associated post object (we only need the ID to create the required relationship in the DB).
         Post post = new Post();
         post.setId(postId);
@@ -45,7 +45,7 @@ public class CommentService {
         return comment;
     }
 
-    public void updateCommentById(final Comment comment, final long id) throws CommentNotFoundException {
+    public void updateCommentById(final long id, final Comment comment) throws CommentNotFoundException {
         final Comment oldComment = commentRepository.findOne(id);
 
         if (oldComment == null) {

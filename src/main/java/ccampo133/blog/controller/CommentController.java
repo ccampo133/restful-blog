@@ -6,7 +6,6 @@ import ccampo133.blog.resource.CommentResource;
 import ccampo133.blog.resource.assembler.CommentResourceAssembler;
 import ccampo133.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +29,9 @@ public class CommentController {
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity<CommentResource> createComment(@PathVariable("postId") final long postId,
+    public ResponseEntity<CommentResource> createComment(@PathVariable("postId") final long postId,
             @RequestBody final Comment comment, final Principal principal) {
-        Comment newComment = commentService.createComment(comment, postId, principal.getName());
+        Comment newComment = commentService.createComment(postId, comment, principal.getName());
         CommentResource newCommentResource = commentResourceAssembler.toResource(newComment);
         return new ResponseEntity<>(newCommentResource, HttpStatus.CREATED);
     }
@@ -55,7 +54,7 @@ public class CommentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updateCommentById(@PathVariable("id") final long id,
             @RequestBody final Comment comment) throws CommentNotFoundException {
-        commentService.updateCommentById(comment, id);
+        commentService.updateCommentById(id, comment);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
