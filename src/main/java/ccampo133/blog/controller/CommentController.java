@@ -12,6 +12,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -31,6 +32,7 @@ public class CommentController {
     }
 
     // CREATE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CommentResource> createComment(@PathVariable("postId") final long postId,
             @RequestBody final Comment comment, final Principal principal) {
@@ -55,6 +57,7 @@ public class CommentController {
     }
 
     // UPDATE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updateCommentById(@PathVariable("id") final long id,
             @RequestBody final Comment comment) throws CommentNotFoundException {
@@ -63,6 +66,7 @@ public class CommentController {
     }
 
     // DELETE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCommentById(@PathVariable("id") final long id) throws CommentNotFoundException {
         commentService.deleteCommentById(id);

@@ -12,6 +12,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,6 +31,7 @@ public class PostController {
     }
 
     // CREATE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<PostResource> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
@@ -52,6 +54,7 @@ public class PostController {
     }
 
     // UPDATE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updatePostById(@PathVariable("id") final long id, @RequestBody final Post post)
             throws PostNotFoundException {
@@ -60,6 +63,7 @@ public class PostController {
     }
 
     // DELETE
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePostById(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);
