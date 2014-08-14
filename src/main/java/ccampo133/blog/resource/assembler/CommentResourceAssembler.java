@@ -30,7 +30,7 @@ public class CommentResourceAssembler extends ResourceAssemblerSupport<Comment, 
     protected CommentResource instantiateResource(final Comment comment) {
         CommentResource resource = new CommentResource();
         resource.setAuthor(comment.getAuthor());
-        resource.setBody(comment.getBody());
+        resource.setBody(comment.getContent());
         resource.setDate(comment.getDate());
         resource.setCommentId(comment.getId());
         return resource;

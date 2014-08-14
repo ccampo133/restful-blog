@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-
 // Lots of JPA magic in this class. The database schema will be generated
 // based on the structure (getters, setters, id annotation) of this POJO.
 
@@ -19,7 +18,7 @@ import java.util.Date;
 public class Post {
 
     private String author;
-    private String body;
+    private String content;
     private String title;
     private Date date;
 
@@ -55,12 +54,12 @@ public class Post {
         this.date = date;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(final String body) {
-        this.body = body;
+    public void setContent(final String content) {
+        this.content = content;
     }
 
     public String getTitle() {

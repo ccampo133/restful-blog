@@ -6,12 +6,15 @@ import ccampo133.blog.resource.PostResource;
 import ccampo133.blog.resource.assembler.PostResourceAssembler;
 import ccampo133.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/posts")
@@ -36,9 +39,10 @@ public class PostController {
 
     // READ
     @RequestMapping(method = RequestMethod.GET)
-    public List<PostResource> getAllPosts() {
-        List<Post> allPosts = postService.getAllPosts();
-        return postResourceAssembler.toResources(allPosts);
+    public PagedResources<PostResource> getAllPosts(final Pageable pageable,
+            final PagedResourcesAssembler<Post> assembler) {
+        Page<Post> posts = postService.getAllPosts(pageable);
+        return assembler.toResource(posts, postResourceAssembler);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

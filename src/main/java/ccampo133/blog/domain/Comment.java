@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by chriscampo on 7/28/14.
- */
 @Entity
 @SuppressWarnings("UnusedDeclaration")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,7 +13,7 @@ public class Comment {
 
     private Date date;
     private String author;
-    private String body;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
@@ -61,11 +58,11 @@ public class Comment {
         this.author = author;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(final String body) {
-        this.body = body;
+    public void setContent(final String content) {
+        this.content = content;
     }
 }

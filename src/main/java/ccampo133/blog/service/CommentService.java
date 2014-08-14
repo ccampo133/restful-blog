@@ -6,10 +6,11 @@ import ccampo133.blog.exception.CommentNotFoundException;
 import ccampo133.blog.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class CommentService {
@@ -31,8 +32,8 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public List<Comment> getAllComments(final long postId) {
-        return commentRepository.findByPostId(postId);
+    public Page<Comment> getAllComments(final long postId, final Pageable pageable) {
+        return commentRepository.findByPostId(postId, pageable);
     }
 
     public Comment getCommentById(final long id) throws CommentNotFoundException {
@@ -52,7 +53,7 @@ public class CommentService {
             throw new CommentNotFoundException("The comment with ID = " + id + " does not exist!");
         }
 
-        oldComment.setBody(comment.getBody());
+        oldComment.setContent(comment.getContent());
 
         commentRepository.save(oldComment);
     }

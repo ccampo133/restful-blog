@@ -5,10 +5,11 @@ import ccampo133.blog.exception.PostNotFoundException;
 import ccampo133.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class PostService {
@@ -26,8 +27,9 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public List<Post> getAllPosts() {
-        return (List<Post>) postRepository.findAll();
+    // Return all posts WITH pagination.
+    public Page<Post> getAllPosts(final Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     public Post getPostById(final long id) throws PostNotFoundException {
@@ -49,8 +51,8 @@ public class PostService {
         }
 
         // Allow partial updates; ignore author, date, and id fields
-        if (post.getBody() != null) {
-            oldPost.setBody(post.getBody());
+        if (post.getContent() != null) {
+            oldPost.setContent(post.getContent());
         }
 
         if (post.getTitle() != null) {

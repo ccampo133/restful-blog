@@ -31,7 +31,7 @@ public class PostResourceAssembler extends ResourceAssemblerSupport<Post, PostRe
         // Map the domain object to the resource representation.
         PostResource resource = new PostResource();
         resource.setAuthor(post.getAuthor());
-        resource.setBody(post.getBody());
+        resource.setBody(post.getContent());
         resource.setDate(post.getDate());
         resource.setTitle(post.getTitle());
         resource.setPostId(post.getId());
