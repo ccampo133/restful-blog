@@ -9,7 +9,7 @@ import java.util.Date;
 public class CommentResource extends ResourceSupport {
 
     public String author;
-    public String body;
+    public String content;
     public Date date;
     public long id;
 
@@ -29,12 +29,12 @@ public class CommentResource extends ResourceSupport {
         this.author = author;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(final String body) {
-        this.body = body;
+    public void setContent(final String content) {
+        this.content = content;
     }
 
     @JsonProperty(value = "id")

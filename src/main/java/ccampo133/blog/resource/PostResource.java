@@ -9,7 +9,7 @@ import java.util.Date;
 public class PostResource extends ResourceSupport {
 
     private String author;
-    private String body;
+    private String content;
     private String title;
     private Date date;
     private long postId;
@@ -22,12 +22,12 @@ public class PostResource extends ResourceSupport {
         this.author = author;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(final String body) {
-        this.body = body;
+    public void setContent(final String content) {
+        this.content = content;
     }
 
     public String getTitle() {
