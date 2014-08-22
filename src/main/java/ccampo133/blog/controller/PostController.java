@@ -31,7 +31,6 @@ public class PostController {
     }
 
     // CREATE
-    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<PostResource> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
@@ -54,7 +53,6 @@ public class PostController {
     }
 
     // UPDATE
-    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updatePostById(@PathVariable("id") final long id, @RequestBody final Post post)
             throws PostNotFoundException {
@@ -63,7 +61,6 @@ public class PostController {
     }
 
     // DELETE
-    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePostById(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);
