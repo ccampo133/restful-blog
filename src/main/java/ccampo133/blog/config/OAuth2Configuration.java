@@ -26,14 +26,14 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter  {
     // {@literal authorizedGrantTypes()}.
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    AuthenticationManagerBuilder authenticationManager;
+   private AuthenticationManagerBuilder authenticationManager;
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // Workaround for https://github.com/spring-projects/spring-boot/issues/1801
         endpoints.authenticationManager(new AuthenticationManager() {
             @Override
-            public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+            public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
                 return authenticationManager.getOrBuild().authenticate(authentication);
             }
         });
@@ -44,7 +44,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter  {
         clients.inMemory()
                 .withClient("api-user")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
-                .authorities("ROLE_USER")
+                .authorities("ROLE_CLIENT")
                 .scopes("write");
     }
 }

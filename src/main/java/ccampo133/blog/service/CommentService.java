@@ -38,23 +38,18 @@ public class CommentService {
 
     public Comment getCommentById(final long id) throws CommentNotFoundException {
         final Comment comment = commentRepository.findOne(id);
-
         if (comment == null) {
-            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist!");
+            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist.");
         }
-
         return comment;
     }
 
     public void updateCommentById(final long id, final Comment comment) throws CommentNotFoundException {
         final Comment oldComment = commentRepository.findOne(id);
-
         if (oldComment == null) {
-            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist!");
+            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist.");
         }
-
         oldComment.setContent(comment.getContent());
-
         commentRepository.save(oldComment);
     }
 
@@ -62,7 +57,7 @@ public class CommentService {
         try {
             commentRepository.delete(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist!");
+            throw new CommentNotFoundException("The comment with ID = " + id + " does not exist.");
         }
     }
 }

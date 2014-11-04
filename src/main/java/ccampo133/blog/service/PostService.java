@@ -34,27 +34,23 @@ public class PostService {
 
     public Post getPostById(final long id) throws PostNotFoundException {
         final Post post = postRepository.findOne(id);
-
         // Couldn't find this post in the DB - 404
         if (post == null) {
-            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+            throw new PostNotFoundException("The post with ID " + id + " does not exist.");
         }
-
         return post;
     }
 
     public void updatePostById(final long id, final Post post) throws PostNotFoundException {
         final Post oldPost = postRepository.findOne(id);
-
         if (oldPost == null) {
-            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+            throw new PostNotFoundException("The post with ID " + id + " does not exist.");
         }
 
         // Allow partial updates; ignore author, date, and id fields
         if (post.getContent() != null) {
             oldPost.setContent(post.getContent());
         }
-
         if (post.getTitle() != null) {
             oldPost.setTitle(post.getTitle());
         }
@@ -66,7 +62,7 @@ public class PostService {
         try {
             postRepository.delete(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new PostNotFoundException("The post with ID " + id + " does not exist!");
+            throw new PostNotFoundException("The post with ID " + id + " does not exist.");
         }
     }
 }

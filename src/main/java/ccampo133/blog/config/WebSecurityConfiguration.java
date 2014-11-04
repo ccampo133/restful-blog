@@ -3,6 +3,7 @@ package ccampo133.blog.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 /**
  * Establishes the list of users. TODO: add the ability to register/remove accounts
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurers
  * @author Chris Campo
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     @Override

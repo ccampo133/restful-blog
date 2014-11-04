@@ -19,10 +19,7 @@ public class PostResourceAssembler extends ResourceAssemblerSupport<Post, PostRe
     @Override
     public PostResource toResource(final Post post) {
         PostResource resource = createResourceWithId(post.getId(), post);
-
-        // Define links
-        resource.add(linkTo(CommentController.class, post.getId()).withRel("comments"));
-
+        resource.add(linkTo(CommentController.class, post.getId()).withRel("comments")); // Define links
         return resource;
     }
 

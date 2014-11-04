@@ -11,7 +11,6 @@ import java.util.Date;
 
 // Lots of JPA magic in this class. The database schema will be generated
 // based on the structure (getters, setters, id annotation) of this POJO.
-
 @Entity
 @SuppressWarnings("UnusedDeclaration")
 @JsonIgnoreProperties(ignoreUnknown = true)

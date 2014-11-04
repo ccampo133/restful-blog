@@ -19,10 +19,7 @@ public class CommentResourceAssembler extends ResourceAssemblerSupport<Comment, 
     @Override
     public CommentResource toResource(final Comment comment) {
         CommentResource resource = createResourceWithId(comment.getId(), comment, comment.getPost().getId());
-
-        // Define links
-        resource.add(linkTo(PostController.class).slash(comment.getPost().getId()).withRel("post"));
-
+        resource.add(linkTo(PostController.class).slash(comment.getPost().getId()).withRel("post")); // Define links
         return resource;
     }
 

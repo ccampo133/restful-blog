@@ -13,8 +13,10 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.security.Principal;
 
 @RestController
@@ -31,6 +33,7 @@ public class PostController {
     }
 
     // CREATE
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<PostResource> createPost(@RequestBody final Post post, final Principal principal) {
         Post newPost = postService.createPost(post, principal.getName());
@@ -39,6 +42,7 @@ public class PostController {
     }
 
     // READ
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public PagedResources<PostResource> getAllPosts(final Pageable pageable,
             final PagedResourcesAssembler<Post> assembler) {
@@ -46,6 +50,7 @@ public class PostController {
         return assembler.toResource(posts, postResourceAssembler);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PostResource getPostById(@PathVariable("id") final long id) throws PostNotFoundException {
         Post post = postService.getPostById(id);
@@ -53,6 +58,7 @@ public class PostController {
     }
 
     // UPDATE
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // TODO: add support for allowing the author to update his own post
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<Void> updatePostById(@PathVariable("id") final long id, @RequestBody final Post post)
             throws PostNotFoundException {
@@ -61,6 +67,7 @@ public class PostController {
     }
 
     // DELETE
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // TODO: add support for allowing the author to update his own post
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePostById(@PathVariable("id") final long id) throws PostNotFoundException {
         postService.deletePostById(id);

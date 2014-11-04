@@ -20,7 +20,7 @@ public class Application extends SpringBootServletInitializer {
 
     // Allows us to run as a .war file.
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
         return application.sources(Application.class);
     }
 }
