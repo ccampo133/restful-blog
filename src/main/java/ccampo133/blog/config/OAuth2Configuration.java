@@ -1,16 +1,17 @@
 package ccampo133.blog.config;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+        import org.springframework.context.annotation.Configuration;
+        import org.springframework.security.authentication.AuthenticationManager;
+        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+        import org.springframework.security.core.Authentication;
+        import org.springframework.security.core.AuthenticationException;
+        import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+        import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+        import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+        import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+        import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 
 /**
  * This class sets up OAuth2 explicit resource owner password credentials grant (token-based) authentication.
@@ -26,7 +27,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter  {
     // {@literal authorizedGrantTypes()}.
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-   private AuthenticationManagerBuilder authenticationManager;
+    private AuthenticationManagerBuilder authenticationManager;
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -48,4 +49,3 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter  {
                 .scopes("write");
     }
 }
-
